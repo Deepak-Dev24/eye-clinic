@@ -1,0 +1,14 @@
+{
+  "pages": {},
+  "app": {
+    "[project]/app/(app)/page": [
+      "static/media/fa0520225c6f3d07-s.p.d28ba1c8.woff2",
+      "static/media/CommitMono_400_Regular-s.p.1caa2b69.otf",
+      "static/media/CommitMono_700_Regular-s.p.33e45302.otf",
+      "static/media/CommitMono_400_Italic-s.p.ef530760.otf",
+      "static/media/CommitMono_700_Italic-s.p.de57ff49.otf"
+    ]
+  },
+  "appUsingSizeAdjust": true,
+  "pagesUsingSizeAdjust": false
+}

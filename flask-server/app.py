@@ -25,7 +25,7 @@ with get_db_connection() as conn:
     ''')
     conn.commit()
 
-# 📨 POST route for saving form
+# 📨 Create new appointment
 @app.route('/api/appointments', methods=['POST'])
 def create_appointment():
     data = request.json
@@ -36,13 +36,40 @@ def create_appointment():
     conn.close()
     return jsonify({'message': 'Appointment saved successfully!'}), 201
 
-# 🔍 Optional: Get all appointments
+# 🔍 Get all appointments
 @app.route('/api/appointments', methods=['GET'])
 def get_appointments():
     conn = get_db_connection()
     rows = conn.execute('SELECT * FROM appointments').fetchall()
     conn.close()
     return jsonify([dict(row) for row in rows])
+
+# 📝 Update an appointment
+@app.route('/api/appointments/<int:id>', methods=['PUT'])
+def update_appointment(id):
+    data = request.json
+    conn = get_db_connection()
+    conn.execute(
+        '''
+        UPDATE appointments
+        SET full_name = ?, phone = ?, appointment_date = ?, appointment_time = ?, reason = ?
+        WHERE id = ?
+        ''',
+        (data['full_name'], data['phone'], data['appointment_date'], data['appointment_time'], data['reason'], id)
+    )
+    conn.commit()
+    conn.close()
+    return jsonify({'message': 'Appointment updated successfully!'}), 200
+
+# ❌ Delete an appointment
+@app.route('/api/appointments/<int:id>', methods=['DELETE'])
+def delete_appointment(id):
+    conn = get_db_connection()
+    conn.execute('DELETE FROM appointments WHERE id = ?', (id,))
+    conn.commit()
+    conn.close()
+    return jsonify({'message': 'Appointment deleted successfully!'}), 200
+
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
