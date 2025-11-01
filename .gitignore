@@ -1,3 +1,10 @@
-AI_AVATAR/.env
-agent_starter/.env
+# Ignore all .env files anywhere in the project
 **/.env
+
+# Ignore system files
+node_modules/
+.DS_Store
+
+# Optional build/output folders
+dist/
+build/
